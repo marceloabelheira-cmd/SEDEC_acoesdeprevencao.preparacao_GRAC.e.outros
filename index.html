@@ -27,7 +27,7 @@
 img{max-width:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.in{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.in{max-width:1360px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 
 /* barra superior */
 .top{background:var(--navy);color:#fff;position:relative}
@@ -51,8 +51,10 @@ a{color:inherit}
 .hero{padding-block:44px 26px}
 @media (max-width:560px){.hero{padding-block:28px 18px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}.stat b{font-size:1.6rem}.item{gap:12px;padding:10px 12px}.date{padding-right:10px}.text{padding:18px}}
 .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
-.hero h1{font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(2.1rem,5.2vw,3.6rem);line-height:1;letter-spacing:-.01em;margin:10px 0 14px;max-width:20ch;text-wrap:balance}
-.lead{font-size:1.08rem;color:var(--ink-2);max-width:62ch;margin:0}
+.hero h1{font-family:var(--display);font-stretch:78%;font-weight:800;font-size:clamp(2.1rem,5.2vw,3.6rem);line-height:1;letter-spacing:-.01em;margin:10px 0 14px;max-width:none;text-wrap:balance}
+.lead{font-size:1.08rem;color:var(--ink-2);max-width:110ch;margin:0}
+.hero{padding-block:36px 22px}
+.prods.home{margin:0 0 26px}
 .stats{display:flex;flex-wrap:wrap;gap:12px 36px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
 .stat b{font-family:var(--display);font-stretch:80%;font-weight:800;font-size:2rem;line-height:1;display:block;font-variant-numeric:tabular-nums}
 .stat span{font-size:.82rem;color:var(--muted)}
@@ -110,6 +112,26 @@ a{color:inherit}
 .gc p{margin:0;font-size:.82rem;color:var(--muted)}
 .gc.on{border-color:var(--orange);box-shadow:inset 0 0 0 1px var(--orange)}
 @media (max-width:560px){.grac{padding:16px}.grac-h p{display:none}.gc{flex-direction:row}.gc .pic{aspect-ratio:auto;width:104px;flex:none;align-self:stretch;font-size:.68rem;text-align:center;padding:4px}.gc .tx{padding:10px 12px}.gc p{display:none}.gc .dt small{display:block;margin:4px 0 0}}
+.prods{display:grid;gap:12px;margin-top:22px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.prod{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);text-decoration:none;transition:border-color .15s,box-shadow .15s}
+.prod:hover{border-color:var(--navy);box-shadow:0 6px 18px -12px rgba(14,42,69,.45)}
+.prod:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.prod .ic{width:40px;height:40px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--navy);color:#fff}
+.prod .ic.yt{background:#c4302b}
+.prod .ic svg{width:20px;height:20px}
+.prod small{display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+.prod b{display:block;font-size:1rem;line-height:1.3;margin-top:2px;color:var(--ink)}
+.prod span{display:block;font-size:.84rem;color:var(--muted);margin-top:3px;line-height:1.4}
+.prod em{font-style:normal;font-size:.76rem;color:var(--navy);font-weight:600;display:block;margin-top:6px;word-break:break-all}
+.vids{margin-top:28px}
+.vids h3{font-family:var(--display);font-stretch:80%;font-weight:700;font-size:1.3rem;margin:0 0 4px}
+@media (min-width:1000px){
+  .texts>.text:only-child{columns:2 380px;column-gap:44px}
+  .texts>.text:only-child>h3,.texts>.text:only-child>h4{column-span:all}
+  .texts>.text:only-child p{max-width:none}
+  .texts>.text:only-child li,.texts>.text:only-child tr{break-inside:avoid}
+  .split .texts>.text:only-child,.split>.text{columns:auto}
+}
 .badge{display:inline-block;margin-left:8px;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--orange);border-radius:4px;padding:1px 6px;vertical-align:1px}
 .grac.mini{margin:36px 0 0}
 .tblwrap{overflow-x:auto;margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
@@ -125,7 +147,7 @@ a{color:inherit}
 .orgs{columns:3 120px;column-gap:18px;margin:0;padding-left:26px;color:var(--ink-2);font-variant-numeric:tabular-nums}
 .orgs li{break-inside:avoid;margin-bottom:4px;font-weight:600}
 .gallery.sm{--h:150px}
-.gallery.sm .ph{max-width:min(100%,460px)}
+.gallery.sm:not(.jl) .ph{max-width:min(100%,460px)}
 @media (max-width:560px){.gallery.sm{--h:110px}
   .tbl.stack thead{display:none}.tbl.stack tr{display:block;padding:10px 14px;border-bottom:1px solid var(--line)}.tbl.stack tbody tr:last-child{border-bottom:0}
   .tbl.stack td{display:block;border:0;padding:2px 0}.tbl.stack td:nth-child(-n+2){display:inline-block;margin-right:10px}.tbl.stack td:first-child{font-weight:700}}
@@ -156,7 +178,14 @@ a{color:inherit}
 .note{margin:18px 0 0;color:var(--ink-2);max-width:72ch}
 .gallery{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;align-items:flex-start;align-content:flex-start}
 .gallery::after{content:"";flex-grow:9999}
-.gallery.tall{--h:300px}
+.gallery.tall{--h:320px}
+.gallery.jl{display:flex;flex-direction:column;gap:8px;--h:250px}
+.gallery.jl::after{display:none}
+.gallery.jl.tall{--h:340px}
+.gallery.jl.sm{--h:190px}
+.jrow{display:flex;gap:8px;width:100%}
+.jrow .ph{min-width:0;max-width:none;flex-basis:0}
+@media (max-width:560px){.gallery.jl{--h:150px}.gallery.jl.tall{--h:200px}.gallery.jl.sm{--h:120px}}
 .gallery.solo::after{display:none}
 .gallery.solo .ph{flex:1 1 100%}
 .ph{flex-grow:var(--r);flex-basis:calc(var(--r) * var(--h,210px));max-width:100%;display:block;padding:0;border:0;background:var(--sunk);border-radius:8px;overflow:hidden;cursor:zoom-in}
@@ -982,6 +1011,10 @@ C["if-simulado-grac"] = `
 const PAINEIS = {
   ci:{
     home:"inicio", aba:"Chuvas Intensas 2025/2026", rodape:"SIMEO · Chuvas Intensas ERJ 2025/2026",
+    links:[
+      {k:"painel", tag:"Painel", t:"Chuvas no período chuvoso", d:"Municípios atingidos por chuvas intensas de novembro de 2025 a abril de 2026, classificados pela Matriz ICR.", u:"https://marceloabelheira-cmd.github.io/ESCALAv4/"},
+      {k:"yt", tag:"Vídeos", t:"Playlist no YouTube", d:"Vídeos das ações de prevenção e preparação da SEDEC-RJ.", u:"https://youtube.com/playlist?list=PLHXxuseD2g9o&si=fbjiEKDmvKMsNt7J"}
+    ],
     eyebrow:"Chuvas Intensas 2025/2026",
     h1:"Ações de prevenção, mitigação e preparação",
     lead:"Registro das ações realizadas pela SEDEC-RJ na preparação do estado para a temporada de Chuvas Intensas 2025/2026: exercícios simulados, capacitações, entregas e eventos técnicos.",
@@ -1004,6 +1037,10 @@ const PAINEIS = {
   },
   if:{
     home:"incendios", aba:"Incêndios Florestais", rodape:"SIMEO · Incêndios Florestais ERJ",
+    links:[
+      {k:"painel", tag:"Painel", t:"Incêndios Florestais em 2025", d:"Monitoramento de 27 de julho a 31 de outubro de 2025: estatísticas diárias, calendário, eventos classificados pela Matriz ICR e reuniões do GIGR-SEIF.", u:"https://marceloabelheira-cmd.github.io/IF_somenteem2025/"},
+      {k:"yt", tag:"Vídeos", t:"Playlist no YouTube", d:"Vídeos das ações de prevenção e preparação da SEDEC-RJ.", u:"https://youtube.com/playlist?list=PLHXxuseD2g9o&si=fbjiEKDmvKMsNt7J"}
+    ],
     eyebrow:"Incêndios Florestais",
     h1:"Ações preventivas das instituições",
     lead:"Exemplos de ações de prevenção e preparação para a temporada de incêndios florestais, realizadas pela SEDEC-RJ e por instituições parceiras do Sistema Estadual de Proteção e Defesa Civil.",
@@ -1098,6 +1135,45 @@ function gracHTML(atual, mini){
     <div class="grac-l">${cards}</div></section>`;
 }
 
+const ICON = {
+  painel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 15v-3M12 15V9M17 15v-5"/></svg>',
+  yt:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 7.5v9l7.5-4.5z"/></svg>'
+};
+function prodHTML(l){
+  const host = l.u.replace(/^https?:\/\//,"").split("/")[0];
+  return `<a class="prod" href="${l.u}" target="_blank" rel="noopener"><span class="ic ${l.k==='yt'?'yt':''}">${ICON[l.k]||ICON.painel}</span><span style="margin:0;min-width:0"><small>${esc(l.tag)}</small><b>${esc(l.t)}</b><span>${esc(l.d)}</span><em>${esc(host)} ↗</em></span></a>`;
+}
+
+/* galeria justificada: distribui as fotos em linhas de mesma altura que preenchem a largura */
+function layoutGalleries(root){
+  (root||app).querySelectorAll(".gallery:not(.solo)").forEach(g=>{
+    const items = [...g.querySelectorAll(".ph")];
+    if(!items.length) return;
+    g.classList.add("jl");
+    g.querySelectorAll(".jrow").forEach(r=>{ while(r.firstChild) g.insertBefore(r.firstChild, r); r.remove(); });
+    const W = g.clientWidth; if(!W) return;
+    const H = parseFloat(getComputedStyle(g).getPropertyValue("--h")) || 250;
+    const R = items.map(b=>parseFloat(b.style.getPropertyValue("--r"))||1.33);
+    const total = R.reduce((s,x)=>s+x,0), n = R.length;
+    let k = Math.max(1, Math.min(n, Math.round(total*H/W)));
+    // particiona em k linhas contíguas com somas o mais parecidas possível
+    const pre=[0]; R.forEach(x=>pre.push(pre[pre.length-1]+x));
+    const tgt = total/k, cost=(i,j)=>{const s=pre[j]-pre[i]; return (s-tgt)*(s-tgt);};
+    const D=[...Array(k+1)].map(()=>Array(n+1).fill(Infinity)), P=[...Array(k+1)].map(()=>Array(n+1).fill(0));
+    D[0][0]=0;
+    for(let r=1;r<=k;r++) for(let j=r;j<=n;j++) for(let i=r-1;i<j;i++){const v=D[r-1][i]+cost(i,j); if(v<D[r][j]){D[r][j]=v;P[r][j]=i;}}
+    const cuts=[]; let j=n; for(let r=k;r>0;r--){const i=P[r][j]; cuts.unshift([i,j]); j=i;}
+    cuts.forEach(([i,j])=>{
+      const row=document.createElement("div"); row.className="jrow";
+      const sum=pre[j]-pre[i], natural=sum*H*1.45;
+      if(natural < W) row.style.maxWidth = natural+"px";
+      items.slice(i,j).forEach((b,x)=>{ b.style.flex = `${R[i+x]} 1 0`; row.appendChild(b); });
+      g.appendChild(row);
+    });
+  });
+}
+let _rz; window.addEventListener("resize",()=>{clearTimeout(_rz); _rz=setTimeout(()=>layoutGalleries(),120);});
+
 function renderHome(pk){
   const P = PAINEIS[pk];
   const todas = ACOES.filter(a=>a.p===pk);
@@ -1122,10 +1198,10 @@ function renderHome(pk){
       <div class="eyebrow">${esc(P.eyebrow)}</div>
       <h1>${esc(P.h1)}</h1>
       <p class="lead">${esc(P.lead)}</p>
-      <div class="stats">${stats}</div>
     </section>
     <section class="in">
       ${gracHTML(null,false)}
+      ${P.links&&P.links.length?`<div class="prods home">${P.links.map(prodHTML).join("")}</div>`:""}
       ${destTopo ? `<div class="destaques">${destTopo}</div>` : ""}
       <div class="filters" role="group" aria-label="Filtrar por tipo">${chips}</div>
       ${grupos}
@@ -1146,6 +1222,7 @@ function renderDetail(a){
     </section>
     <section class="in">
       ${a.conteudo || `<div class="empty"><b>Registro em preparação</b><p>As fotos, a ficha e o relato desta ação serão publicados em breve.</p></div>`}
+      ${a.videos&&a.videos.length?`<section class="vids"><h3>Vídeos</h3><div class="prods">${a.videos.map(v=>prodHTML({k:"yt",tag:"YouTube",t:v.t,d:v.d||"",u:v.u})).join("")}</div></section>`:""}
       ${a.grac ? gracHTML(a,true) : ""}
       <nav class="pn" aria-label="Outras ações">
         ${prev?`<a href="#${prev.id}"><small>← Anterior</small><span>${esc(prev.titulo)}</span></a>`:''}
@@ -1161,6 +1238,7 @@ function route(){
   const homeP = Object.keys(PAINEIS).find(k=>PAINEIS[k].home===h);
   if (a){ setChrome(a.p); renderDetail(a); }
   else { const pk = homeP || "ci"; setChrome(pk); renderHome(pk); }
+  layoutGalleries();
   window.scrollTo(0,0);
 }
 
