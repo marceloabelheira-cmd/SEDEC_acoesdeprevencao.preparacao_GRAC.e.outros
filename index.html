@@ -37,12 +37,25 @@ a{color:inherit}
 .mark{height:44px;width:auto;flex:none;border-radius:5px;background:#fff;display:block}
 .brand b{font-family:var(--display);font-stretch:85%;font-weight:700;font-size:1.05rem;letter-spacing:.02em;display:block;line-height:1.1}
 .brand span{font-size:.78rem;opacity:.72;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tabs{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.tabs{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:auto}
 .tabs::-webkit-scrollbar{display:none}
 .tab{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:#c9d3de;border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:6px 14px;white-space:nowrap}
 .tab:hover{color:#fff;border-color:rgba(255,255,255,.5)}
 .tab[aria-current="page"]{background:#fff;color:var(--navy);border-color:#fff}
 .tab:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.more{flex:none;margin-left:-8px;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;color:#fff;opacity:.28;transition:opacity .15s}
+.more svg{width:12px;height:12px;fill:currentColor}
+.more:hover,.more[aria-current="page"]{opacity:.9}
+.more:focus-visible{opacity:1;outline:2px solid var(--orange);outline-offset:2px}
+@media (max-width:860px){.more{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px))}.top .in{position:relative}}
+/* produtos */
+.pgrp{display:grid;grid-template-columns:200px 1fr;gap:0 28px;padding-block:20px;border-top:1px solid var(--line)}
+.pgrp:first-of-type{border-top:0}
+.pgrp h2{font-family:var(--display);font-stretch:80%;font-weight:700;font-size:1.2rem;margin:4px 0 0;line-height:1.15}
+.pgrp h2 small{display:block;font-family:var(--body);font-stretch:100%;font-weight:500;font-size:.8rem;color:var(--muted);margin-top:4px}
+.plist{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));min-width:0}
+@media (max-width:760px){.pgrp{grid-template-columns:1fr;gap:12px}}
+.prod .here{display:inline-block;margin-left:6px;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--navy);border-radius:4px;padding:1px 6px;vertical-align:1px}
 @media (max-width:860px){.top .in{flex-wrap:wrap;gap:10px}.tabs{width:100%}.tab{flex:1;text-align:center;padding:7px 10px}}
 @media (max-width:560px){.tabs{display:grid;grid-template-columns:1fr 1fr;overflow:visible}.tab{white-space:normal;font-size:.72rem;letter-spacing:.04em;line-height:1.25;display:flex;align-items:center;justify-content:center}.brand span{display:none}.mark{height:38px}
   .gallery{--h:120px}.gallery.tall{--h:170px}}
@@ -262,6 +275,7 @@ footer .in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;pad
       <a class="tab" data-p="ci" href="#inicio">Chuvas Intensas 2025/2026</a>
       <a class="tab" data-p="if" href="#incendios">Incêndios Florestais</a>
     </nav>
+    <a class="more" id="moreLink" href="#produtos" title="Outros produtos da SEDEC-RJ" aria-label="Outros produtos da SEDEC-RJ"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="3" cy="3" r="1.4"/><circle cx="8" cy="3" r="1.4"/><circle cx="13" cy="3" r="1.4"/><circle cx="3" cy="8" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="13" cy="8" r="1.4"/><circle cx="3" cy="13" r="1.4"/><circle cx="8" cy="13" r="1.4"/><circle cx="13" cy="13" r="1.4"/></svg></a>
   </div>
 </header>
 <main id="app"></main>
@@ -1218,10 +1232,50 @@ const app = document.getElementById("app");
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const filtro = {ci:"todas", if:"todas"};
 
+const PRODUTOS = [
+  {g:"Incêndios Florestais", s:"Seca, estiagem e queimadas", itens:[
+    {t:"Incêndios Florestais · GIGR 2025", d:"Quantitativo por dia e eventos significativos (Matriz ICR).", u:"https://marceloabelheira-cmd.github.io/IF_somenteem2025/"},
+    {t:"Incêndios Florestais · 2025 e 2026", d:"Quantitativo por dia e eventos significativos (Matriz ICR).", u:"https://marceloabelheira-cmd.github.io/IF2025/#2026"}]},
+  {g:"Chuvas", s:"Impactos, decretos e ajuda humanitária", itens:[
+    {t:"Chuvas · nov/25 a abr/26", d:"Municípios com impactos significativos (Matriz ICR).", u:"https://marceloabelheira-cmd.github.io/ESCALAv4/"},
+    {t:"Situação de Emergência e Ajuda Humanitária", d:"Chuvas de nov/25 a abr/26: municípios com Situação de Emergência e/ou ajuda humanitária.", u:"https://marceloabelheira-cmd.github.io/PAINEL_SEeAJUDAHUMANITARIA_chuvas2025.2026/"},
+    {t:"Painel de Chuvas · visão geral", d:"Municípios com impactos significativos (Matriz ICR) a partir de outubro de 2026.", u:"https://marceloabelheira-cmd.github.io/PAINEL_CHUVAS_RJ_visaogeral/"}]},
+  {g:"Excesso de Calor", s:"Em estudo", itens:[
+    {t:"Painel de Excesso de Calor", d:"Municípios com impactos significativos (Matriz ICR), em estudo.", u:"https://marceloabelheira-cmd.github.io/PAINEL_EXCESSODECALOR_MatrizICR/"}]},
+  {g:"Comitê El Niño", s:"Portais e plenárias", itens:[
+    {t:"Portal El Niño · versão Comitê", d:"Portal de acompanhamento do Comitê El Niño.", u:"https://marceloabelheira-cmd.github.io/COMITE_ELNINO_PORTAL/"},
+    {t:"Portal El Niño · versão pública", d:"Versão aberta do portal, para a população.", u:"https://marceloabelheira-cmd.github.io/COMITE_ELNINO_PORTAL_versaopublica/"},
+    {t:"Comitê El Niño · Reuniões Plenárias", d:"Relatórios consolidados das reuniões plenárias.", u:"https://marceloabelheira-cmd.github.io/COMITE_ELNINO_ReunioesPlenarias/"}]},
+  {g:"Planos de Contingência", s:"PLANCONs em telas", itens:[
+    {t:"PLANCON SEIF 2026", d:"Secas, Estiagens e Incêndios Florestais.", u:"https://marceloabelheira-cmd.github.io/PLANCON_IF_2026/"},
+    {t:"PLANCON Animais 2026", d:"Plano prático para resgate e abrigo de animais em desastres.", u:"https://marceloabelheira-cmd.github.io/PLANCON_animais_PlanoPratico/"}]},
+  {g:"Ações Preventivas", s:"Histórico", itens:[
+    {t:"Histórico das Ações Preventivas", d:"Incêndios Florestais (GIGR 2025) e Chuvas Intensas 2025/2026.", u:"https://marceloabelheira-cmd.github.io/SEDEC_acoesdeprevencao.preparacao_GRAC.e.outros/", aqui:true}]},
+  {g:"Desastres Tecnológicos", s:"Município do Rio de Janeiro", itens:[
+    {t:"Desastres Tecnológicos · Rio de Janeiro", d:"Eventos significativos de 2011 a 2025 (Matriz ICR).", u:"https://marceloabelheira-cmd.github.io/MATRIZICR_desastrestecnologicosRio_dashboard/"}]}
+];
+
+function renderProdutos(){
+  const n = PRODUTOS.reduce((s,g)=>s+g.itens.length,0);
+  app.innerHTML = `
+    <section class="hero in">
+      <div class="eyebrow">Outros produtos</div>
+      <h1>Sites, painéis e dashboards da SEDEC-RJ</h1>
+      <p class="lead">${n} produtos desenvolvidos pelo GIGR-SEIF a partir das matrizes do SIMEO e da Matriz ICR. Cada link abre em uma nova aba.</p>
+    </section>
+    <section class="in">
+      ${PRODUTOS.map(g=>`<section class="pgrp"><h2>${esc(g.g)}<small>${esc(g.s)}</small></h2><div class="plist">${g.itens.map(p=>{
+        const host = p.u.replace(/^https?:\/\//,"").split("/").slice(1,2).join("");
+        return `<a class="prod" href="${p.u}" target="_blank" rel="noopener"><span class="ic">${ICON.painel}</span><span style="margin:0;min-width:0"><b>${esc(p.t)}${p.aqui?'<span class="here">Você está aqui</span>':''}</b><span>${esc(p.d)}</span><em>${esc(host)} ↗</em></span></a>`;}).join("")}</div></section>`).join("")}
+      <a class="back" href="#inicio" style="margin-top:20px">← Voltar ao histórico</a>
+    </section>`;
+}
+
 function setChrome(pk){
   document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-current", t.dataset.p===pk ? "page" : "false"));
   document.getElementById("foot").textContent = PAINEIS[pk].rodape;
   document.getElementById("brandLink").href = "#" + PAINEIS[pk].home;
+  document.getElementById("moreLink").setAttribute("aria-current","false");
 }
 
 function itemHTML(a){
@@ -1353,6 +1407,7 @@ function route(){
   const h = location.hash.slice(1);
   const a = ACOES.find(x=>x.id===h);
   const homeP = Object.keys(PAINEIS).find(k=>PAINEIS[k].home===h);
+  if (h==="produtos"){ setChrome("ci"); document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current","false")); document.getElementById("moreLink").setAttribute("aria-current","page"); document.getElementById("foot").textContent="SEDEC-RJ · GIGR-SEIF"; renderProdutos(); window.scrollTo(0,0); return; }
   if (a){ setChrome(a.p); renderDetail(a); }
   else { const pk = homeP || "ci"; setChrome(pk); renderHome(pk); }
   layoutGalleries();
