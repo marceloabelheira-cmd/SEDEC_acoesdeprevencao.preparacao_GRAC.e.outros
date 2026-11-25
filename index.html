@@ -390,14 +390,14 @@ footer .in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;pad
 
 <header class="top">
   <div class="in">
-    <a class="brand" id="brandLink" href="#inicio" aria-label="Início do painel">
+    <a class="brand" id="brandLink" href="#comite" aria-label="Início do painel">
       <img class="mark" src="LOTE_2_fotos/img/logo_dc.png" alt="Defesa Civil · Governo do Estado do Rio de Janeiro">
       <div><b>Histórico das Ações Preventivas</b><span>SEDEC-RJ · Prevenção, mitigação e preparação</span></div>
     </a>
     <nav class="tabs" aria-label="Painéis">
+      <a class="tab tab-en" data-p="en" href="#comite">Comitê El Niño</a>
       <a class="tab" data-p="ci" href="#inicio">Chuvas Intensas</a>
       <a class="tab" data-p="if" href="#incendios">Incêndios Florestais</a>
-      <a class="tab tab-en" data-p="en" href="#comite">Comitê El Niño</a>
     </nav>
     <a class="more" id="moreLink" href="#produtos" title="Outros produtos da SEDEC-RJ" aria-label="Outros produtos da SEDEC-RJ"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="3" cy="3" r="1.4"/><circle cx="8" cy="3" r="1.4"/><circle cx="13" cy="3" r="1.4"/><circle cx="3" cy="8" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="13" cy="8" r="1.4"/><circle cx="3" cy="13" r="1.4"/><circle cx="8" cy="13" r="1.4"/><circle cx="13" cy="13" r="1.4"/></svg></a>
   </div>
@@ -1965,7 +1965,7 @@ function renderProdutos(){
       ${PRODUTOS.map(g=>`<section class="pgrp"><h2>${esc(g.g)}<small>${esc(g.s)}</small></h2><div class="plist">${g.itens.map(p=>{
         const host = p.u.replace(/^https?:\/\//,"").split("/").slice(1,2).join("");
         return `<a class="prod" href="${p.u}" target="_blank" rel="noopener"><span class="ic">${ICON.painel}</span><span style="margin:0;min-width:0"><b>${esc(p.t)}${p.aqui?'<span class="here">Você está aqui</span>':''}</b><span>${esc(p.d)}</span></span><span class="arr" aria-hidden="true">↗</span></a>`;}).join("")}</div></section>`).join("")}
-      <a class="back" href="#inicio" style="margin-top:20px">← Voltar ao histórico</a>
+      <a class="back" href="#comite" style="margin-top:20px">← Voltar ao histórico</a>
     </section>`;
 }
 
@@ -2148,10 +2148,10 @@ function route(){
   const a = ACOES.find(x=>x.id===h);
   let homeP = Object.keys(PAINEIS).find(k=>PAINEIS[k].home===h);
   if (h==="chuvas-2025-2026"){ homeP="ci"; tempCI="2526"; }
-  else if (h==="inicio" || h==="chuvas-2026-2027" || h===""){ homeP = homeP || "ci"; tempCI="2627"; }
+  else if (h==="inicio" || h==="chuvas-2026-2027"){ homeP = "ci"; tempCI="2627"; }
   if (h==="produtos"){ setChrome("ci"); document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current","false")); document.getElementById("moreLink").setAttribute("aria-current","page"); document.getElementById("foot").textContent="SEDEC-RJ · GIGR-SEIF"; renderProdutos(); window.scrollTo(0,0); return; }
   if (a){ setChrome(a.p); renderDetail(a); }
-  else { const pk = homeP || "ci"; setChrome(pk); renderHome(pk); }
+  else { const pk = homeP || "en"; setChrome(pk); renderHome(pk); }
   layoutGalleries();
   window.scrollTo(0,0);
 }
